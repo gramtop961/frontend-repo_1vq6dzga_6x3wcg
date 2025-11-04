@@ -14,7 +14,7 @@ export default function Navbar({ lang = "en", onToggleLang }) {
         <div className="flex items-center gap-2 text-sky-300">
           <Snowflake className="w-6 h-6" />
           <Zap className="w-5 h-5" />
-          <span className="font-semibold tracking-wide text-sky-200">FrostBolt</span>
+          <span className="font-semibold tracking-wide text-sky-200">landjav</span>
         </div>
         <nav className="hidden md:flex items-center gap-6 text-sm text-slate-200">
           <a href="#features" className="hover:text-white transition-colors">{t.features}</a>

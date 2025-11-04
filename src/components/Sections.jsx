@@ -1,4 +1,4 @@
-import { Phone, MessageCircle, Camera, Mail, ShieldCheck, BookOpen } from "lucide-react";
+import { Phone, MessageCircle, Camera, Mail, ShieldCheck, BookOpen, Users, Hash, Plus } from "lucide-react";
 
 function FeatureCard({ icon: Icon, title, desc, cta, href }) {
   return (
@@ -13,8 +13,8 @@ function FeatureCard({ icon: Icon, title, desc, cta, href }) {
         {href && (
           <a
             href={href}
-            target="_blank"
-            rel="noreferrer"
+            target={href.startsWith("#") ? undefined : "_blank"}
+            rel={href.startsWith("#") ? undefined : "noreferrer"}
             className="mt-4 inline-flex items-center px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium shadow shadow-blue-600/30 transition-colors"
           >
             {cta}
@@ -67,6 +67,126 @@ function ChatRoulette({ lang }) {
               <button className="px-4 py-3 rounded-xl bg-blue-600/80 hover:bg-blue-500 text-white font-semibold transition-colors">{t.next}</button>
               <button className="px-4 py-3 rounded-xl bg-blue-600/80 hover:bg-blue-500 text-white font-semibold transition-colors">{t.stop}</button>
               <div className="pt-2 text-xs text-slate-400">{t.note}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Communities({ lang }) {
+  const t = {
+    en: {
+      heading: "Channels & Groups",
+      sub: "Create public channels for broadcasts or private groups for team chats.",
+      type: "Type",
+      channel: "Channel",
+      group: "Group",
+      name: "Name",
+      visibility: "Visibility",
+      public: "Public",
+      private: "Private",
+      create: "Create",
+      helper: "Preview only — no server yet. Your entries are not stored.",
+      samples: "Examples: #announcements, Builders Club",
+    },
+    ru: {
+      heading: "Каналы и группы",
+      sub: "Создавайте публичные каналы для анонсов или приватные группы для командного чата.",
+      type: "Тип",
+      channel: "Канал",
+      group: "Группа",
+      name: "Название",
+      visibility: "Видимость",
+      public: "Публичный",
+      private: "Приватный",
+      create: "Создать",
+      helper: "Демонстрация — сервера ещё нет. Данные не сохраняются.",
+      samples: "Примеры: #announcements, Builders Club",
+    },
+  }[lang];
+
+  return (
+    <section id="communities" className="relative py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-white">{t.heading}</h2>
+          <p className="mt-2 text-slate-300/90">{t.sub}</p>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 grid lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const data = new FormData(form);
+                const payload = Object.fromEntries(data.entries());
+                // purely client-side preview action
+                alert(`${t.heading}: ${payload.type} — ${payload.name} (${payload.visibility})`);
+              }}
+              className="space-y-4"
+            >
+              <div className="grid sm:grid-cols-3 gap-4">
+                <label className="block">
+                  <span className="text-sm text-slate-300">{t.type}</span>
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-slate-200 flex-1">
+                      <Hash className="w-4 h-4 text-blue-300" />
+                      <select name="type" className="bg-transparent w-full outline-none">
+                        <option value="channel">{t.channel}</option>
+                        <option value="group">{t.group}</option>
+                      </select>
+                    </span>
+                  </div>
+                </label>
+                <label className="block sm:col-span-2">
+                  <span className="text-sm text-slate-300">{t.name}</span>
+                  <input
+                    required
+                    name="name"
+                    type="text"
+                    placeholder={t.samples}
+                    className="mt-2 w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </label>
+              </div>
+
+              <div className="grid sm:grid-cols-3 gap-4">
+                <label className="block sm:col-span-2">
+                  <span className="text-sm text-slate-300">{t.visibility}</span>
+                  <div className="mt-2 grid grid-cols-2 gap-3">
+                    <label className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-slate-200">
+                      <input type="radio" name="visibility" value="public" defaultChecked />
+                      <Users className="w-4 h-4 text-blue-300" />
+                      <span>{t.public}</span>
+                    </label>
+                    <label className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-slate-200">
+                      <input type="radio" name="visibility" value="private" />
+                      <Users className="w-4 h-4 text-blue-300" />
+                      <span>{t.private}</span>
+                    </label>
+                  </div>
+                </label>
+                <div className="flex items-end">
+                  <button type="submit" className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-lg shadow-blue-600/30 transition-colors">
+                    <Plus className="w-4 h-4" />
+                    {t.create}
+                  </button>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400">{t.helper}</p>
+            </form>
+          </div>
+          <div className="space-y-4">
+            <div className="rounded-xl border border-white/10 bg-black/60 p-4">
+              <div className="flex items-center gap-2 text-slate-200"><Hash className="w-4 h-4 text-blue-300" /><span>#announcements</span></div>
+              <p className="text-xs text-slate-400 mt-1">Public channel</p>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-black/60 p-4">
+              <div className="flex items-center gap-2 text-slate-200"><Users className="w-4 h-4 text-blue-300" /><span>Builders Club</span></div>
+              <p className="text-xs text-slate-400 mt-1">Private group</p>
             </div>
           </div>
         </div>
@@ -161,6 +281,9 @@ export default function Sections({ lang = "en" }) {
       gmail: "Gmail Account Setup",
       gmailDesc: "Step‑by‑step guidance for creating a new Gmail account.",
       createOnGoogle: "Create on Google",
+      channels: "Channels & Groups",
+      channelsDesc: "Create channels or groups to organize conversations.",
+      manage: "Manage",
       phoneTitle: "Phone Number",
       phoneDesc: "Add your number for updates. Carrier fees may apply.",
       save: "Save",
@@ -178,6 +301,9 @@ export default function Sections({ lang = "en" }) {
       gmail: "Создание аккаунта Gmail",
       gmailDesc: "Пошаговая инструкция по созданию нового аккаунта Gmail.",
       createOnGoogle: "Создать на Google",
+      channels: "Каналы и группы",
+      channelsDesc: "Создавайте каналы или группы, чтобы организовать общение.",
+      manage: "Управлять",
       phoneTitle: "Номер телефона",
       phoneDesc: "Добавьте номер для уведомлений. Возможны тарифы оператора.",
       save: "Сохранить",
@@ -190,7 +316,7 @@ export default function Sections({ lang = "en" }) {
   return (
     <section id="features" className="relative py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-4 gap-6">
           <FeatureCard
             icon={MessageCircle}
             title={t.featuresChat}
@@ -212,10 +338,18 @@ export default function Sections({ lang = "en" }) {
             cta={t.createOnGoogle}
             href="https://accounts.google.com/SignUp"
           />
+          <FeatureCard
+            icon={Users}
+            title={t.channels}
+            desc={t.channelsDesc}
+            cta={t.manage}
+            href="#communities"
+          />
         </div>
       </div>
 
       <ChatRoulette lang={lang} />
+      <Communities lang={lang} />
       <Resources lang={lang} />
 
       <section id="contact" className="relative py-16">

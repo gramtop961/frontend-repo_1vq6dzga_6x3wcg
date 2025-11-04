@@ -3,16 +3,16 @@ import Spline from "@splinetool/react-spline";
 export default function HeroCover({ lang = "en" }) {
   const t = {
     en: {
-      title: "Connect, Create, and Explore — All in One Place",
+      title: "landjav — Connect, Create, and Explore",
       subtitle:
-        "Chat with people, make calls, spin into Chat Roulette, set up email & phone, and grab essential Minecraft resources.",
+        "Chats, calls, channels & groups, Chat Roulette, email/phone setup, and curated Minecraft resources.",
       explore: "Explore Features",
       startChat: "Start Chat Roulette",
     },
     ru: {
-      title: "Общайся, создавай и исследуй — всё в одном месте",
+      title: "landjav — общайся, создавай и исследуй",
       subtitle:
-        "Общайтесь, звоните, запускайте чат‑рулетку, настраивайте почту и телефон, берите ресурсы для Minecraft.",
+        "Чаты, звонки, каналы и группы, чат‑рулетка, почта/телефон и подборка ресурсов для Minecraft.",
       explore: "Смотреть функции",
       startChat: "Запустить чат‑рулетку",
     },
