@@ -1,6 +1,6 @@
 import { Snowflake, Zap } from "lucide-react";
 
-export default function Navbar({ lang = "en", onToggleLang }) {
+export default function Navbar({ lang = "en", onToggleLang, onTogglePerf, perfLabel }) {
   const t = {
     en: { features: "Features", chat: "Chat Roulette", minecraft: "Minecraft", contact: "Contact", getStarted: "Get Started" },
     ru: { features: "Функции", chat: "Чат‑рулетка", minecraft: "Minecraft", contact: "Контакты", getStarted: "Начать" },
@@ -23,6 +23,14 @@ export default function Navbar({ lang = "en", onToggleLang }) {
           <a href="#contact" className="hover:text-white transition-colors">{t.contact}</a>
         </nav>
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onTogglePerf}
+            aria-label="Toggle performance mode"
+            className="inline-flex items-center justify-center px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 font-medium transition-colors"
+          >
+            {perfLabel}
+          </button>
           <button
             type="button"
             onClick={onToggleLang}
